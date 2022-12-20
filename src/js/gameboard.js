@@ -43,9 +43,7 @@ const Gameboard = () => {
         // if y coords are the same, set length to difference between x coords:
         } else if (y === y2 && (1 < Math.abs(x - x2) < 6)) {
             length = Math.abs(x - x2) + 1;
-        } 
-        
-        else {
+        } else {
             return;
         }
 
@@ -64,7 +62,6 @@ const Gameboard = () => {
             }
         } else if (y === y2 && x < x2) {
             for (let z = x; z <= x2; z++) {
-                
                 let square = findSquare(z, y);
                 square.ship = newShip;
             }
@@ -93,7 +90,6 @@ const Gameboard = () => {
             attackedSquare.ship.hit();
             // then add the square to the 'hits' set:
             hits.add(attackedSquare);
-            allSunk();
         } else {
             // otherwise add the square to the 'misses' set:
             misses.add(attackedSquare);
@@ -105,6 +101,9 @@ const Gameboard = () => {
             return true;
             // begin end of game logic...
         }
+        // alternative approach would be to iterate over the ships array,
+        // checking if each ship has sunk
+
         return false;
     }
 
