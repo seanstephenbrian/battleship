@@ -9,6 +9,15 @@ const Gameboard = () => {
     // initialize empty array to hold references to all created ships:
     let ships = [];
 
+    // initialize empty set to track the successful hits:
+    const hits = new Set();
+
+    // initialize empty set to track misses:
+    const misses = new Set();
+
+    // initialize variable to track whether all ships have been sunk:
+    let allSunk = false;
+
     // create 10x10 grid:
     for (let x = 1; x <= 10; x++) {
         for (let y = 1; x<= 10; x++) {
@@ -69,11 +78,38 @@ const Gameboard = () => {
     }
 
     function receiveAttack(x, y) {
+        const attackedSquare = findSquare(x, y);
+
+        // if square has already been attacked, simply return:
+        if (hits.has(attackedSquare) || misses.has(attackedSquare)) return;
+
+        // mark the square as having been attacked:
+        attackedSquare.attacked = true;
+        
+        // if the attacked square has a ship, add a 'hit' to that ship:
+        if (attackedSquare.ship) {
+            attackedSquare.ship.hit();
+            // then add the square to the 'hits' set:
+            hits.add(attackedSquare);
+            // check if the hits set has 17 hits (this means the player has lost):
+            if (hits.size === 17) {
+                allSunk = true;
+                // then start end-of-game procedure...
+            }
+        } else {
+            // otherwise add the square to the 'misses' set:
+            misses.add(attackedSquare);
+        }
 
     }
-    // allSunk property
 
-    return { createShip }
+    return { 
+        createShip, 
+        hits, 
+        misses, 
+        allSunk,
+        receiveAttack 
+    }
 }
 
 export default Gameboard;

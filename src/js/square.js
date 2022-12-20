@@ -1,7 +1,7 @@
 const Square = (x, y) => {
     let ship = null;
-    let hit = false;
-    return { x, y, ship, hit };
+    let attacked = false;
+    return { x, y, ship, attacked };
 }
 
 export default Square;
