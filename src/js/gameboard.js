@@ -1,5 +1,5 @@
-import Square from "./square";
-import Ship from "./ship";
+import Square from "./square.js";
+import Ship from "./ship.js";
 
 const Gameboard = () => {
 
@@ -15,12 +15,9 @@ const Gameboard = () => {
     // initialize empty set to track misses:
     const misses = new Set();
 
-    // initialize variable to track whether all ships have been sunk:
-    let allSunk = false;
-
     // create 10x10 grid:
     for (let x = 1; x <= 10; x++) {
-        for (let y = 1; x<= 10; x++) {
+        for (let y = 1; y<= 10; y++) {
             const newSquare = Square(x, y);
             gameSquares.push(newSquare);
         }
@@ -28,11 +25,13 @@ const Gameboard = () => {
 
     // return a reference to a gameboard square based on its x & y coordinates:
     function findSquare(x, y) {
+        let targetSquare;
         gameSquares.forEach(square => {
-            if (square.x === x) {
-                if (square.y === y) return square;
+            if (square.x === x && square.y === y) {
+                targetSquare = square;
             }
-        })
+        });
+        return targetSquare;
     }
 
     // create a ship of the appropriate length given its starting & ending coordinates:
@@ -40,11 +39,13 @@ const Gameboard = () => {
         let length;
         // if x coordinates are the same, set length to difference between y coordinates:
         if (x === x2 && (1 < Math.abs(y - y2) < 6)) {
-            length = Math.abs(y - y2);
+            length = Math.abs(y - y2) + 1;
         // if y coords are the same, set length to difference between x coords:
         } else if (y === y2 && (1 < Math.abs(x - x2) < 6)) {
-            length = Math.abs(x - x2);
-        } else {
+            length = Math.abs(x - x2) + 1;
+        } 
+        
+        else {
             return;
         }
 
@@ -63,12 +64,13 @@ const Gameboard = () => {
             }
         } else if (y === y2 && x < x2) {
             for (let z = x; z <= x2; z++) {
-                let square = findSquare(x, z);
+                
+                let square = findSquare(z, y);
                 square.ship = newShip;
             }
         } else if (y === y2 && x > x2) {
             for (let z = x2; z <= x; z++) {
-                let square = findSquare(x, z);
+                let square = findSquare(z, y);
                 square.ship = newShip;
             }
         }
@@ -91,15 +93,19 @@ const Gameboard = () => {
             attackedSquare.ship.hit();
             // then add the square to the 'hits' set:
             hits.add(attackedSquare);
-            // check if the hits set has 17 hits (this means the player has lost):
-            if (hits.size === 17) {
-                allSunk = true;
-                // then start end-of-game procedure...
-            }
+            allSunk();
         } else {
             // otherwise add the square to the 'misses' set:
             misses.add(attackedSquare);
         }
+    }
+
+    function allSunk() {
+        if (hits.size === 17) {
+            return true;
+            // begin end of game logic...
+        }
+        return false;
     }
 
     function showMisses() {

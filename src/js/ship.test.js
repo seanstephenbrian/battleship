@@ -1,24 +1,24 @@
 import Ship from './ship';
 
-describe('create a ship of length 5', () => {
+describe('ship sunk status reporting accuracy', () => {
 
     const testShip = Ship(5);
 
     test('not sunk if only hit once', () => {
         testShip.hit();
-        expect(testShip.sunk).toBeFalsy;
+        expect(testShip.isSunk()).toBeFalsy();
     });
     
     test('still not sunk (needs one more hit)', () => {
         testShip.hit();
         testShip.hit();
         testShip.hit();
-        expect(testShip.sunk).toBeFalsy;
+        expect(testShip.isSunk()).toBeFalsy();
     });
 
     test('ship sinks when hits === length', () => {
         testShip.hit();
-        expect(testShip.sunk).toBeTruthy;
+        expect(testShip.isSunk()).toBeTruthy();
     });
 
 });
