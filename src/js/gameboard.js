@@ -100,15 +100,30 @@ const Gameboard = () => {
             // otherwise add the square to the 'misses' set:
             misses.add(attackedSquare);
         }
+    }
 
+    function showMisses() {
+        let recordedMisses = [];
+        misses.forEach(miss => {
+            recordedMisses.push([miss.x, miss.y]);
+        });
+        return recordedMisses;
+    }
+
+    function showHits() {
+        let recordedHits = [];
+        hits.forEach(hit => {
+            recordedHits.push([hit.x, hit.y]);
+        })
+        return recordedHits;
     }
 
     return { 
-        createShip, 
-        hits, 
-        misses, 
+        createShip,
         allSunk,
-        receiveAttack 
+        receiveAttack,
+        showHits,
+        showMisses
     }
 }
 
