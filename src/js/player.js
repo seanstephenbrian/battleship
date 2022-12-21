@@ -12,7 +12,7 @@ const Player = () => {
         board.createShip([9, 2], [9, 4]);
 
     function attack(otherPlayer, [x, y]) {
-        otherPlayer.Gameboard.receiveAttack(x, y);
+        otherPlayer.board.receiveAttack(x, y);
     }
 
     return { 
