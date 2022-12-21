@@ -1,4 +1,4 @@
-import Gameboard from "./gameboard";
+import Gameboard from "../gameboard";
 
 describe('showMisses() and showHits() reporting accuracy', () => {
 

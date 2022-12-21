@@ -1,4 +1,4 @@
-import Player from "./player";
+import Player from "../player";
 
 // create two players for testing purposes:
 const playerOne = Player();
