@@ -28,4 +28,9 @@ describe('correctly identify player hits/misses', () => {
         expect(testGame.playerTwo.board.showMisses()).toStrictEqual([[1, 1]]);
     });
 
+    test('show successful attack', () => {
+        testGame.playerOne.attack(testGame.playerTwo, [5, 5]);
+        expect(testGame.playerTwo.board.showHits()).toStrictEqual([[5, 5]]);
+    });
+
 });
