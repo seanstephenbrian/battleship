@@ -51,21 +51,29 @@ const Gameboard = () => {
 
         // update gameboard squares to reference the ship:
         if (x === x2 && y < y2) {
+            newShip.startingSquare = [x, y];
+            newShip.orientation = 'y';
             for (let z = y; z <= y2; z++) {
                 let square = findSquare(x, z);
                 square.ship = newShip;
             }
         } else if (x === x2 && y > y2) {
+            newShip.startingSquare = [x, y2];
+            newShip.orientation = 'y';
             for (let z = y2; z <= y; z++) {
                 let square = findSquare(x, z);
                 square.ship = newShip;
             }
         } else if (y === y2 && x < x2) {
+            newShip.startingSquare = [x, y];
+            newShip.orientation = 'x';
             for (let z = x; z <= x2; z++) {
                 let square = findSquare(z, y);
                 square.ship = newShip;
             }
         } else if (y === y2 && x > x2) {
+            newShip.startingSquare = [x2, y];
+            newShip.orientation = 'x';
             for (let z = x2; z <= x; z++) {
                 let square = findSquare(z, y);
                 square.ship = newShip;
@@ -128,7 +136,8 @@ const Gameboard = () => {
         allSunk,
         receiveAttack,
         showHits,
-        showMisses
+        showMisses,
+        ships
     }
 }
 
