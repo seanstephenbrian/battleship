@@ -3,6 +3,8 @@ import Game from '../game';
 // create test game:
 const testGame = Game();
 
+console.log(testGame.playerOne.board.ships);
+
 // tests to confirm that we will be able to correct render the ships to a DOM gameboard display:
 describe('access ship length/orientation info', () => {
 

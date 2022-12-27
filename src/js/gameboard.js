@@ -17,7 +17,7 @@ const Gameboard = () => {
 
     // create 10x10 grid:
     for (let x = 1; x <= 10; x++) {
-        for (let y = 1; y<= 10; y++) {
+        for (let y = 1; y <= 10; y++) {
             const newSquare = Square(x, y);
             gameSquares.push(newSquare);
         }
@@ -38,10 +38,10 @@ const Gameboard = () => {
     function createShip([x, y], [x2, y2]) {
         let length;
         // if x coordinates are the same, set length to difference between y coordinates:
-        if (x === x2 && (1 < Math.abs(y - y2) < 6)) {
+        if (x === x2) {
             length = Math.abs(y - y2) + 1;
         // if y coords are the same, set length to difference between x coords:
-        } else if (y === y2 && (1 < Math.abs(x - x2) < 6)) {
+        } else if (y === y2) {
             length = Math.abs(x - x2) + 1;
         } else {
             return;
