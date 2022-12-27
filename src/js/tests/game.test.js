@@ -19,3 +19,13 @@ describe('access ship length/orientation info', () => {
     });
     
 });
+
+// tests related to player attacks:
+describe('correctly identify player hits/misses', () => {
+
+    test('show missed attack', () => {
+        testGame.playerOne.attack(testGame.playerTwo, [1, 1]);
+        expect(testGame.playerTwo.board.showMisses()).toStrictEqual([[1, 1]]);
+    });
+
+});
