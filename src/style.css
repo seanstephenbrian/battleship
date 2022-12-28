@@ -38,13 +38,28 @@ body {
     min-height: 100vh;
 }
 
+.hide {
+    display: none;
+}
+
 body {
+    position: relative;
     display: flex;
     flex-direction: column;
     background: rgb(2,0,36);
     background: linear-gradient(115deg, rgba(2,0,36,1) 0%, rgba(0,71,171,1) 39%, rgba(150,177,194,1) 100%);
     font-family: 'Unbounded', var(--font-fallback);
     color: white;
+    overflow-x: hidden;
+}
+
+.overlay {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    z-index: 1;
+    background-color: rgba(0, 0, 0, 0.481);
 }
 
     /* body * {

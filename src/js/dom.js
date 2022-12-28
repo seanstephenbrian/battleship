@@ -57,7 +57,6 @@ import '../style.css';
                 for (let x = 1; x <= 10; x++) {
                     const gameSquare = document.createElement('div');
                     gameSquare.classList.add(`game-square`, `x-${x}`, `y-${y}`);
-                    gameSquare.textContent = `${x}, ${y}`;
                     board.appendChild(gameSquare);
                 }
             }
@@ -73,7 +72,12 @@ import '../style.css';
         footer.textContent = `copyright © ${year} | sean stephen brian`;
     })();
 
-    
+    (function createOverlay() {
+        const body = document.querySelector('body');
+        const overlay = document.createElement('div');
+        overlay.classList.add('overlay');
+        body.appendChild(overlay);
+    })();
 
 })();
 
