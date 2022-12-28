@@ -62,9 +62,24 @@ body {
     background-color: rgba(0, 0, 0, 0.481);
 }
 
-    /* body * {
-        border: 1px solid red;
-    } */
+.alert-wrapper {
+    z-index: 2;
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.alert-window {
+    width: 60vw;
+    height: 60vw;
+    border: 1px solid red;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 
 header {
     height: 8vh;
@@ -145,6 +160,10 @@ footer {
     .board-squares {
         width: 35vw;
         height: 35vw;
+    }
+    .alert-window {
+        max-width: 20vw;
+        max-height: 20vw;
     }
     header span {
         transition: margin 0.2s ease-in-out, transform 0.4s ease-in-out;

@@ -79,5 +79,20 @@ import '../style.css';
         body.appendChild(overlay);
     })();
 
+    function createAlert() {
+        const body = document.querySelector('body');
+        const alertWrapper = document.createElement('div');
+        alertWrapper.classList.add('alert-wrapper');
+        body.appendChild(alertWrapper);
+
+            const alertWindow = document.createElement('div');
+            alertWindow.classList.add('alert-window');
+            alertWrapper.appendChild(alertWindow);
+            alertWindow.textContent = 'alert';
+        
+    };
+
+    createAlert();
+
 })();
 
