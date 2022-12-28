@@ -19,6 +19,17 @@ time, mark, audio, video {
 	vertical-align: baseline;
 }
 
+:root {
+    --font-fallback: 'Helvetica', 'Arial', sans-serif;
+}
+
+@font-face {
+    font-family: 'Unbounded';
+    src: url('./fonts/unbounded/unbounded.ttf') format("truetype supports variations"),
+         url('./fonts/unbounded/unbounded.ttf') format("truetype-variations");
+    font-weight: 100 1000;
+}
+
 html,
 body {
     box-sizing: border-box;
@@ -31,6 +42,8 @@ body {
     flex-direction: column;
     background: rgb(2,0,36);
     background: linear-gradient(115deg, rgba(2,0,36,1) 0%, rgba(0,71,171,1) 39%, rgba(150,177,194,1) 100%);
+    font-family: 'Unbounded', var(--font-fallback);
+    color: white;
 }
 
     /* body * {
@@ -53,6 +66,10 @@ header {
     display: flex;
     flex-direction: column;
     gap: 2vw;
+}
+
+.board-title {
+    font-weight: 400;
 }
 
 .board-squares {
