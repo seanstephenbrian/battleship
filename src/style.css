@@ -21,6 +21,7 @@ time, mark, audio, video {
 
 :root {
     --font-fallback: 'Helvetica', 'Arial', sans-serif;
+    --rvv: calc(1rem + 1vh + 1vw);
 }
 
 @font-face {
@@ -51,7 +52,15 @@ body {
     } */
 
 header {
+    height: 8vh;
     margin-bottom: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+header span {
+    margin: 0 1vw;
 }
 
 .gameboards {
@@ -106,6 +115,12 @@ header {
 
 footer {
     margin-top: auto;
+    height: 6vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: calc(0.35*var(--rvv));
+    font-weight: 100;
 }
 
 @media screen and (min-width: 600px) {
@@ -115,5 +130,14 @@ footer {
     .board-squares {
         width: 35vw;
         height: 35vw;
+    }
+    header span {
+        transition: margin 0.2s ease-in-out, transform 0.4s ease-in-out;
+    }
+    header:hover span {
+        margin: 0 2vw;
+    }
+    header span:hover {
+        transform: rotate(600deg) scale(1.5);
     }
 }

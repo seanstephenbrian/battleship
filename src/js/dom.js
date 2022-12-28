@@ -9,7 +9,8 @@ import '../style.css';
         const body = document.querySelector('body');
         const header = document.createElement('header');
         body.appendChild(header);
-        header.textContent = 'header';
+        header.innerHTML = 
+            `<span>b</span><span>a</span><span>t</span><span>t</span><span>l</span><span>e</span><span>s</span><span>h</span><span>i</span><span>p</span>`;
     })();
 
     (function createGameboardsContainer() {
@@ -67,7 +68,9 @@ import '../style.css';
         const body = document.querySelector('body');
         const footer = document.createElement('footer');
         body.appendChild(footer);
-        footer.textContent = 'footer';
+        const date = new Date();
+        const year = date.getFullYear();
+        footer.textContent = `copyright © ${year} | sean stephen brian`;
     })();
 
     
