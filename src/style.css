@@ -60,6 +60,8 @@ body {
     overflow: hidden;
     z-index: 1;
     background-color: rgba(0, 0, 0, 0.481);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
 }
 
 .alert-wrapper {
@@ -73,12 +75,13 @@ body {
 }
 
 .alert-window {
-    width: 60vw;
-    height: 60vw;
-    border: 1px solid red;
+    width: 70vw;
+    height: 70vw;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 2rem;
+    background-color: #9b9b9bce;
 }
 
 header {
@@ -162,6 +165,8 @@ footer {
         height: 35vw;
     }
     .alert-window {
+        min-width: 300px;
+        min-height: 300px;
         max-width: 20vw;
         max-height: 20vw;
     }
