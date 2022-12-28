@@ -79,6 +79,16 @@ import '../style.css';
         body.appendChild(overlay);
     })();
 
+    function hideOverlay() {
+        const overlay = document.querySelector('.overlay');
+        overlay.classList.add('hide');
+    }
+
+    function showOverlay() {
+        const overlay = document.querySelector('.overlay');
+        overlay.classList.remove('hide');
+    }
+
     function createAlert() {
         const body = document.querySelector('body');
         const alertWrapper = document.createElement('div');
@@ -88,11 +98,33 @@ import '../style.css';
             const alertWindow = document.createElement('div');
             alertWindow.classList.add('alert-window');
             alertWrapper.appendChild(alertWindow);
-            alertWindow.textContent = 'alert';
-        
     };
 
-    createAlert();
+    function deleteAlert() {
+        const alert = document.querySelector('.alert-wrapper');
+        alert.remove();
+    }
+
+    (function alertNewGame() {
+        createAlert();
+        const alert = document.querySelector('.alert-window');
+
+            const title = document.createElement('div');
+            title.classList.add('alert-title', 'new-game-title');
+            title.textContent = 'welcome to BATTLESHIP . . .';
+            alert.appendChild(title);
+
+            const subtitle = document.createElement('div');
+            subtitle.classList.add('new-game-subtitle');
+            subtitle.textContent = 'click below to begin.';
+            alert.appendChild(subtitle);
+
+            const startButton = document.createElement('div');
+            startButton.classList.add('start-button', 'button');
+            startButton.textContent = 'start game';
+            alert.appendChild(startButton);
+
+    })();
 
 })();
 
