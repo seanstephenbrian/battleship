@@ -108,23 +108,26 @@ import '../style.css';
     (function alertNewGame() {
         createAlert();
         const alert = document.querySelector('.alert-window');
+        alert.classList.add('new-game-alert');
 
             const title = document.createElement('div');
             title.classList.add('alert-title', 'new-game-title');
-            title.textContent = 'welcome to BATTLESHIP . . .';
+            title.textContent = 'welcome to BATTLESHIP';
             alert.appendChild(title);
-
-            const subtitle = document.createElement('div');
-            subtitle.classList.add('new-game-subtitle');
-            subtitle.textContent = 'click below to begin.';
-            alert.appendChild(subtitle);
 
             const startButton = document.createElement('div');
             startButton.classList.add('start-button', 'button');
             startButton.textContent = 'start game';
             alert.appendChild(startButton);
 
+        startButton.addEventListener('click', startGame);
+
     })();
+
+    function startGame() {
+        deleteAlert();
+        hideOverlay();
+    }
 
 })();
 

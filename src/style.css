@@ -73,6 +73,7 @@ body {
 }
 
 .alert-window {
+    padding: calc(0.5*var(--rvv));
     width: 70vw;
     height: 70vw;
     display: flex;
@@ -90,14 +91,29 @@ body {
     font-weight: 500;
 }
 
-.new-game-title {
-    transition: transform 0.4s ease-in-out;
+.new-game-alert {
+    max-height: 40vw;
 }
 
-.new-game-title:hover {
-    transform: scale(1.1);
-    color: #20C20E;
-    text-shadow: red 2px 2px;
+.new-game-title {
+    font-size: calc(0.45*var(--rvv));
+    letter-spacing: 1.5px;
+    color: #1aff00;
+    text-shadow: rgba(250, 0, 0, 0.475) 2px 2px;
+    animation: blink 1s steps(5, start) infinite;
+    -webkit-animation: blink 1s steps(5, start) infinite;
+}
+
+@keyframes blink {
+    to {
+        visibility: hidden;
+    }
+}
+
+@-webkit-keyframes blink {
+    to {
+        visibility: hidden;
+    }
 }
 
 .start-button {
@@ -202,8 +218,11 @@ footer {
     .alert-window {
         min-width: 300px;
         min-height: 300px;
-        max-width: 20vw;
-        max-height: 20vw;
+        max-width: 25vw;
+        max-height: 25vw;
+    }
+    .new-game-alert {
+        max-height: 15vw;
     }
     header span {
         transition: margin 0.2s ease-in-out, transform 0.4s ease-in-out;
