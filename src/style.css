@@ -31,6 +31,18 @@ time, mark, audio, video {
     font-weight: 100 1000;
 }
 
+@keyframes blink {
+    to {
+        visibility: hidden;
+    }
+}
+
+@-webkit-keyframes blink {
+    to {
+        visibility: hidden;
+    }
+}
+
 html,
 body {
     box-sizing: border-box;
@@ -104,18 +116,6 @@ body {
     -webkit-animation: blink 1s steps(5, start) infinite;
 }
 
-@keyframes blink {
-    to {
-        visibility: hidden;
-    }
-}
-
-@-webkit-keyframes blink {
-    to {
-        visibility: hidden;
-    }
-}
-
 .start-button {
     cursor: pointer;
     padding: 1rem;
@@ -136,6 +136,7 @@ body {
 }
 
 header {
+    font-size: calc(0.6*var(--rvv));
     height: 8vh;
     margin-bottom: auto;
     display: flex;
@@ -144,7 +145,7 @@ header {
 }
 
 header span {
-    margin: 0 1vw;
+    margin: 0 2vw;
 }
 
 .gameboards {
@@ -224,13 +225,8 @@ footer {
     .new-game-alert {
         max-height: 15vw;
     }
-    header span {
-        transition: margin 0.2s ease-in-out, transform 0.4s ease-in-out;
-    }
-    header:hover span {
-        margin: 0 2vw;
-    }
     header span:hover {
-        transform: rotate(600deg) scale(1.5);
+        color: #1aff00;
+        text-shadow: rgba(250, 0, 0, 0.475) 2px 2px;
     }
 }

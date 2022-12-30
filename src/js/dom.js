@@ -127,6 +127,12 @@ import '../style.css';
     function startGame() {
         deleteAlert();
         hideOverlay();
+
+        // add blinking animation to header text:
+        const header = document.querySelector('header');
+        header.style.animation = 'blink 2s steps(5, start) infinite';
+        header.style['-webkit-animation'] = 'blink 2s steps(5, start) infinite';
+
     }
 
 })();
