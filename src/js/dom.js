@@ -4,6 +4,7 @@ import '../style.css';
 
 (function createInitialDOMStructure() {
 
+    let currentGame;
 
     (function createHeader() {
         const body = document.querySelector('body');
@@ -56,7 +57,7 @@ import '../style.css';
             for (let y = 10; y >= 1; y--) {
                 for (let x = 1; x <= 10; x++) {
                     const gameSquare = document.createElement('div');
-                    gameSquare.classList.add(`game-square`, `x-${x}`, `y-${y}`);
+                    gameSquare.classList.add(`game-square`, `x-${x}`, `y-${y}`, `x${x}-y${y}`);
                     board.appendChild(gameSquare);
                 }
             }
@@ -133,6 +134,38 @@ import '../style.css';
         header.style.animation = 'blink 2s steps(5, start) infinite';
         header.style['-webkit-animation'] = 'blink 2s steps(5, start) infinite';
 
+        // create a new game:
+        currentGame = Game();
+
+        // TRIGGER LOGIC TO ALLOW USER TO CHOOSE SHIP POSITIONS
+
+        renderBoard();
+
+    }
+
+    function renderBoard() {
+        const playerOneShips = currentGame.playerOne.board.ships;
+        const playerTwoShips = currentGame.playerTwo.board.ships;
+
+        renderShips(currentGame.playerOne, '.player-one-board-squares');
+        renderShips(currentGame.playerTwo, '.player-two-board-squares');
+    }
+
+    function renderShips(player, boardSelector) {
+        player.board.ships.forEach(ship => {
+            // const startingSquare = document.querySelector(`${boardSelector} .x${ship.startingSquare[0]}-y${ship.startingSquare[1]}`);
+            if (ship.orientation === 'x') {
+                for (let i = 0; i < ship.length; i++) {
+                    const shipSquare = document.querySelector(`${boardSelector} .x${ship.startingSquare[0] + i}-y${ship.startingSquare[1]}`);
+                    shipSquare.textContent = 'X';
+                }
+            } else if (ship.orientation === 'y') {
+                for (let i = 0; i < ship.length; i++) {
+                    const shipSquare = document.querySelector(`${boardSelector} .x${ship.startingSquare[0]}-y${ship.startingSquare[1] + i}`);
+                    shipSquare.textContent = 'X';
+                }
+            }       
+        });
     }
 
 })();
