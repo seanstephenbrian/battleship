@@ -173,6 +173,15 @@ header span {
     font-weight: 400;
 }
 
+.attack-prompt {
+    font-size: calc(0.45*var(--rvv));
+    letter-spacing: 1.5px;
+    color: var(--site-green);
+    text-shadow: rgba(250, 0, 0, 0.475) 2px 2px;
+    animation: blink 1s steps(5, start) infinite;
+    -webkit-animation: blink 1s steps(5, start) infinite;
+}
+
 .board-squares {
     display: grid;
     width: 60vw;

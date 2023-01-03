@@ -137,7 +137,8 @@ const Gameboard = () => {
         receiveAttack,
         showHits,
         showMisses,
-        ships
+        ships,
+        findSquare
     }
 }
 

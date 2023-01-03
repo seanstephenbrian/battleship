@@ -4,7 +4,7 @@ import '../style.css';
 
 (function createInitialDOMStructure() {
 
-    let currentGame;
+    let currentGame = null;
 
     (function createHeader() {
         const body = document.querySelector('body');
@@ -58,6 +58,8 @@ import '../style.css';
                 for (let x = 1; x <= 10; x++) {
                     const gameSquare = document.createElement('div');
                     gameSquare.classList.add(`game-square`, `x-${x}`, `y-${y}`, `x${x}-y${y}`);
+                    gameSquare.dataset.x = x;
+                    gameSquare.dataset.y = y;
                     board.appendChild(gameSquare);
                 }
             }
@@ -141,6 +143,8 @@ import '../style.css';
 
         renderBoard();
 
+        getPlayerMove();
+
     }
 
     function renderBoard() {
@@ -148,13 +152,10 @@ import '../style.css';
         const playerTwo = currentGame.playerTwo;
 
         renderShips(playerOne, '.player-one-board-squares');
-        renderShips(playerTwo, '.player-two-board-squares');
 
-        playerOne.attack(playerTwo, [2, 3]);
         renderHits(playerOne, '.player-one-board-squares');
         renderHits(playerTwo, '.player-two-board-squares');
 
-        playerOne.attack(playerTwo, [4, 4]);
         renderMisses(playerOne, '.player-one-board-squares');
         renderMisses(playerTwo, '.player-two-board-squares');
     }
@@ -217,6 +218,7 @@ import '../style.css';
     function renderHits(player, boardSelector) {
         player.board.showHits().forEach(hit => {
             const hitSquare = document.querySelector(`${boardSelector} .x${hit[0]}-y${hit[1]}`);
+            hitSquare.innerHTML = '';
             const hitMarker = document.createElement('div');
             hitMarker.classList.add('hit-marker');
             hitSquare.appendChild(hitMarker);
@@ -226,11 +228,38 @@ import '../style.css';
     function renderMisses(player, boardSelector) {
         player.board.showMisses().forEach(miss => {
             const missedSquare = document.querySelector(`${boardSelector} .x${miss[0]}-y${miss[1]}`);
+            missedSquare.innerHTML = '';
             const missMarker = document.createElement('div');
             missMarker.classList.add('miss-marker');
             missedSquare.appendChild(missMarker);
         });
     }
 
+    function getPlayerMove() {
+        const playerTwoTitle = document.querySelector('.player-two-board-title');
+        const playerTwoBoard = document.querySelector('.player-two-board-squares');
+
+        playerTwoTitle.classList.add('attack-prompt');
+        playerTwoTitle.textContent = 'CHOOSE A SQUARE TO ATTACK:';
+
+        playerTwoBoard.style.cursor = 'pointer';
+        playerTwoBoard.addEventListener('click', clickSquare);
+    }
+
+    function clickSquare(e) {
+        const clickedSquare = e.target;
+        const xCoord = parseInt(clickedSquare.dataset.x);
+        const yCoord = parseInt(clickedSquare.dataset.y);
+        attemptAttack(xCoord, yCoord);
+    }
+
+    function attemptAttack(x, y) {
+        const targetSquare = currentGame.playerTwo.board.findSquare(x, y);
+        if (targetSquare.attacked === false) {
+            currentGame.playerOne.attack(currentGame.playerTwo, [x, y]);
+            renderBoard();
+        }
+    }
+    
 })();
 
