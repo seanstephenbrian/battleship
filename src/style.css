@@ -197,6 +197,16 @@ header span {
     background: linear-gradient(149deg, rgba(255,0,0,1) 0%, rgba(255,81,81,1) 54%, rgba(214,112,112,1) 100%);
 }
 
+.miss-marker {
+    height: 50%;
+    width: 50%;
+    border-radius: 50%;
+    border: 0.5px solid rgb(190, 190, 190);
+    background: rgb(103,111,122);
+    background: linear-gradient(149deg, rgba(103,111,122,1) 0%, rgba(52,72,99,1) 54%, rgba(23,49,87,1) 100%);
+    transform: var(--ship-transform);
+}
+
 .x-1 {
     border-left: none;
 }

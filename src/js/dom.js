@@ -144,23 +144,23 @@ import '../style.css';
     }
 
     function renderBoard() {
-        const playerOneShips = currentGame.playerOne.board.ships;
-        const playerTwoShips = currentGame.playerTwo.board.ships;
+        const playerOne = currentGame.playerOne;
+        const playerTwo = currentGame.playerTwo;
 
-        renderShips(currentGame.playerOne, '.player-one-board-squares');
-        renderShips(currentGame.playerTwo, '.player-two-board-squares');
+        renderShips(playerOne, '.player-one-board-squares');
+        renderShips(playerTwo, '.player-two-board-squares');
 
-        currentGame.playerOne.attack(currentGame.playerTwo, [2, 3]);
-        renderHits(currentGame.playerOne, '.player-one-board-squares');
-        renderHits(currentGame.playerTwo, '.player-two-board-squares');
+        playerOne.attack(playerTwo, [2, 3]);
+        renderHits(playerOne, '.player-one-board-squares');
+        renderHits(playerTwo, '.player-two-board-squares');
 
-        renderMisses(currentGame.playerOne, '.player-one-board-squares');
-        renderMisses(currentGame.playerTwo, '.player-two-board-squares');
+        playerOne.attack(playerTwo, [4, 4]);
+        renderMisses(playerOne, '.player-one-board-squares');
+        renderMisses(playerTwo, '.player-two-board-squares');
     }
 
     function renderShips(player, boardSelector) {
         player.board.ships.forEach(ship => {
-            // const startingSquare = document.querySelector(`${boardSelector} .x${ship.startingSquare[0]}-y${ship.startingSquare[1]}`);
             if (ship.orientation === 'x') {
                 for (let i = 0; i < ship.length; i++) {
                     const shipSquare = document.querySelector(`${boardSelector} .x${ship.startingSquare[0] + i}-y${ship.startingSquare[1]}`);
@@ -224,7 +224,12 @@ import '../style.css';
     }
 
     function renderMisses(player, boardSelector) {
-
+        player.board.showMisses().forEach(miss => {
+            const missedSquare = document.querySelector(`${boardSelector} .x${miss[0]}-y${miss[1]}`);
+            const missMarker = document.createElement('div');
+            missMarker.classList.add('miss-marker');
+            missedSquare.appendChild(missMarker);
+        });
     }
 
 })();
