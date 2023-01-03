@@ -255,9 +255,39 @@ import '../style.css';
 
     function attemptAttack(x, y) {
         const targetSquare = currentGame.playerTwo.board.findSquare(x, y);
+        // make sure that the square hasn't been attacked yet:
         if (targetSquare.attacked === false) {
+            // then complete the attack:
             currentGame.playerOne.attack(currentGame.playerTwo, [x, y]);
+            // re-render the board to show the new attack:
             renderBoard();
+            // remove click listeners from the enemy board:
+            const playerTwoBoard = document.querySelector('.player-two-board-squares');
+            playerTwoBoard.removeEventListener('click', clickSquare);
+            // check to see if all the enemy's ships have sunk:
+            
+            // if not, receive a random attack on player's own board:
+            receiveAttack();
+        }
+    }
+
+    function receiveAttack() {
+        // get a random square to potentially attack:
+        const randomX = Math.floor(Math.random() * 10 + 1);
+        const randomY = Math.floor(Math.random() * 10 + 1);
+        const randomSquare = currentGame.playerOne.board.findSquare(randomX, randomY);
+        // if the square has already been attacked, run the function again:
+        if (randomSquare.attacked === true) {
+            receiveAttack();
+        // if it hasn't yet been attacked, complete the attack:
+        } else if (randomSquare.attacked === false) {
+            currentGame.playerTwo.attack(currentGame.playerOne, [randomX, randomY]);
+            // then re-render the board to show the new attack:
+            renderBoard();
+            // check to see if all the player's ships have sunk:
+
+            // if not, get the player's next move:
+            getPlayerMove();
         }
     }
     
