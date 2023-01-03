@@ -149,6 +149,13 @@ import '../style.css';
 
         renderShips(currentGame.playerOne, '.player-one-board-squares');
         renderShips(currentGame.playerTwo, '.player-two-board-squares');
+
+        currentGame.playerOne.attack(currentGame.playerTwo, [2, 3]);
+        renderHits(currentGame.playerOne, '.player-one-board-squares');
+        renderHits(currentGame.playerTwo, '.player-two-board-squares');
+
+        renderMisses(currentGame.playerOne, '.player-one-board-squares');
+        renderMisses(currentGame.playerTwo, '.player-two-board-squares');
     }
 
     function renderShips(player, boardSelector) {
@@ -205,6 +212,17 @@ import '../style.css';
                 }
             }       
         });
+    }
+
+    function renderHits(player, boardSelector) {
+        player.board.showHits().forEach(hit => {
+            const hitSquare = document.querySelector(`${boardSelector} .x${hit[0]}-y${hit[1]}`);
+            hitSquare.style.backgroundColor = '#ff0000'
+        });
+    }
+
+    function renderMisses(player, boardSelector) {
+
     }
 
 })();
