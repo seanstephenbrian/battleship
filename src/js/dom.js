@@ -158,13 +158,24 @@ import '../style.css';
                 for (let i = 0; i < ship.length; i++) {
                     const shipSquare = document.querySelector(`${boardSelector} .x${ship.startingSquare[0] + i}-y${ship.startingSquare[1]}`);
                     shipSquare.style.backgroundColor = `var(--ship-bg)`;
-                    shipSquare.style.border = `var(--ship-border)`;
                     shipSquare.style.transform = `var(--ship-transform)`;
                     if (i === 0) {
                         shipSquare.style.borderRadius = `var(--ship-border-radius) 0 0 var(--ship-border-radius)`;
-                    }
-                    if (i === ship.length - 1) {
+                        shipSquare.style.borderTop = `var(--ship-border)`;
+                        shipSquare.style.borderRight = 'none';
+                        shipSquare.style.borderBottom = `var(--ship-border)`;
+                        shipSquare.style.borderLeft = `var(--ship-border)`;
+                    } else if (i === ship.length - 1) {
                         shipSquare.style.borderRadius = `0 var(--ship-border-radius) var(--ship-border-radius) 0`;
+                        shipSquare.style.borderTop = `var(--ship-border)`;
+                        shipSquare.style.borderRight = `var(--ship-border)`;
+                        shipSquare.style.borderBottom = `var(--ship-border)`;
+                        shipSquare.style.borderLeft = 'none';
+                    } else {
+                        shipSquare.style.borderTop = `var(--ship-border)`;
+                        shipSquare.style.borderRight = 'none';
+                        shipSquare.style.borderBottom = `var(--ship-border)`;
+                        shipSquare.style.borderLeft = 'none';
                     }
                 }
             } else if (ship.orientation === 'y') {
@@ -175,9 +186,21 @@ import '../style.css';
                     shipSquare.style.transform = `var(--ship-transform)`;
                     if (i === 0) {
                         shipSquare.style.borderRadius = `0 0 var(--ship-border-radius) var(--ship-border-radius)`;
-                    }
-                    if (i === ship.length - 1) {
+                        shipSquare.style.borderTop = 'none';
+                        shipSquare.style.borderRight = `var(--ship-border)`;
+                        shipSquare.style.borderBottom = `var(--ship-border)`;
+                        shipSquare.style.borderLeft = `var(--ship-border)`;
+                    } else if (i === ship.length - 1) {
                         shipSquare.style.borderRadius = `var(--ship-border-radius) var(--ship-border-radius) 0 0`;
+                        shipSquare.style.borderTop = `var(--ship-border)`;
+                        shipSquare.style.borderRight = `var(--ship-border)`;
+                        shipSquare.style.borderBottom = `none`;
+                        shipSquare.style.borderLeft = `var(--ship-border)`;
+                    } else {
+                        shipSquare.style.borderTop = `none`;
+                        shipSquare.style.borderRight = `var(--ship-border)`;
+                        shipSquare.style.borderBottom = `none`;
+                        shipSquare.style.borderLeft = `var(--ship-border)`;
                     }
                 }
             }       

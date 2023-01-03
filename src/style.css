@@ -23,10 +23,10 @@ time, mark, audio, video {
     --font-fallback: 'Helvetica', 'Arial', sans-serif;
     --rvv: calc(1rem + 1vh + 1vw);
 
-    --ship-bg: #172f51;
-    --ship-border: 1px solid #172f51;
+    --ship-bg: #20334e;
+    --ship-border: 1px solid #89a8d4;
     --ship-border-radius: 5px;
-    --ship-transform: scale(1.2);
+    --ship-transform: scale(1.1);
 }
 
 @font-face {
