@@ -131,11 +131,6 @@ import '../style.css';
         deleteAlert();
         hideOverlay();
 
-        // add blinking animation to header text:
-        const header = document.querySelector('header');
-        header.style.animation = 'blink 2s steps(5, start) infinite';
-        header.style['-webkit-animation'] = 'blink 2s steps(5, start) infinite';
-
         // create a new game:
         currentGame = Game();
 
@@ -257,6 +252,10 @@ import '../style.css';
         const targetSquare = currentGame.playerTwo.board.findSquare(x, y);
         // make sure that the square hasn't been attacked yet:
         if (targetSquare.attacked === false) {
+            // remove 'CHOOSE A SQUARE' styling:
+            const playerTwoTitle = document.querySelector('.player-two-board-title');
+            playerTwoTitle.classList.remove('attack-prompt');
+            playerTwoTitle.textContent = 'enemy grid:'
             // then complete the attack:
             currentGame.playerOne.attack(currentGame.playerTwo, [x, y]);
             // re-render the board to show the new attack:
@@ -264,12 +263,18 @@ import '../style.css';
             // remove click listeners from the enemy board:
             const playerTwoBoard = document.querySelector('.player-two-board-squares');
             playerTwoBoard.removeEventListener('click', clickSquare);
+            // and remove pointer style from enemy board:
+            playerTwoBoard.style.cursor = 'default';
             // check to see if all the enemy's ships have sunk:
             if (currentGame.playerTwo.board.allSunk() === true) {
                 alert('player one wins!');
             }
-            // if not, receive a random attack on player's own board:
-            receiveAttack();
+            // if not, let the player know the computer is generating an attack:
+            const playerOneTitle = document.querySelector('.player-one-board-title');
+            playerOneTitle.classList.add('attack-prompt');
+            playerOneTitle.textContent = 'ATTACK INCOMING . . .';            
+            // then receive a random attack on player's own board:
+            setTimeout(receiveAttack, 2000);
         }
     }
 
@@ -283,6 +288,10 @@ import '../style.css';
             receiveAttack();
         // if it hasn't yet been attacked, complete the attack:
         } else if (randomSquare.attacked === false) {
+            // remove 'ATTACK INCOMING' message:
+            const playerOneTitle = document.querySelector('.player-one-board-title');
+            playerOneTitle.classList.remove('attack-prompt');
+            playerOneTitle.textContent = 'your grid:';
             currentGame.playerTwo.attack(currentGame.playerOne, [randomX, randomY]);
             // then re-render the board to show the new attack:
             renderBoard();
