@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
   mode: "development",
-  entry: "./src/js/dom.js",
+  entry: "./src/js/game-controller.js",
   devtool: "inline-source-map",
   plugins: [
     new HtmlWebpackPlugin({
