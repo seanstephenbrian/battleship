@@ -157,12 +157,28 @@ import '../style.css';
             if (ship.orientation === 'x') {
                 for (let i = 0; i < ship.length; i++) {
                     const shipSquare = document.querySelector(`${boardSelector} .x${ship.startingSquare[0] + i}-y${ship.startingSquare[1]}`);
-                    shipSquare.textContent = 'X';
+                    shipSquare.style.backgroundColor = `var(--ship-bg)`;
+                    shipSquare.style.border = `var(--ship-border)`;
+                    shipSquare.style.transform = `var(--ship-transform)`;
+                    if (i === 0) {
+                        shipSquare.style.borderRadius = `var(--ship-border-radius) 0 0 var(--ship-border-radius)`;
+                    }
+                    if (i === ship.length - 1) {
+                        shipSquare.style.borderRadius = `0 var(--ship-border-radius) var(--ship-border-radius) 0`;
+                    }
                 }
             } else if (ship.orientation === 'y') {
                 for (let i = 0; i < ship.length; i++) {
                     const shipSquare = document.querySelector(`${boardSelector} .x${ship.startingSquare[0]}-y${ship.startingSquare[1] + i}`);
-                    shipSquare.textContent = 'X';
+                    shipSquare.style.backgroundColor = `var(--ship-bg)`;
+                    shipSquare.style.border = `var(--ship-border)`;
+                    shipSquare.style.transform = `var(--ship-transform)`;
+                    if (i === 0) {
+                        shipSquare.style.borderRadius = `0 0 var(--ship-border-radius) var(--ship-border-radius)`;
+                    }
+                    if (i === ship.length - 1) {
+                        shipSquare.style.borderRadius = `var(--ship-border-radius) var(--ship-border-radius) 0 0`;
+                    }
                 }
             }       
         });

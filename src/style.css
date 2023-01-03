@@ -22,6 +22,11 @@ time, mark, audio, video {
 :root {
     --font-fallback: 'Helvetica', 'Arial', sans-serif;
     --rvv: calc(1rem + 1vh + 1vw);
+
+    --ship-bg: #172f51;
+    --ship-border: 1px solid #172f51;
+    --ship-border-radius: 5px;
+    --ship-transform: scale(1.2);
 }
 
 @font-face {
