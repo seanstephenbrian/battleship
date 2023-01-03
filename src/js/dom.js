@@ -279,30 +279,91 @@ import '../style.css';
     }
 
     function receiveAttack() {
-        // get a random square to potentially attack:
-        const randomX = Math.floor(Math.random() * 10 + 1);
-        const randomY = Math.floor(Math.random() * 10 + 1);
-        const randomSquare = currentGame.playerOne.board.findSquare(randomX, randomY);
-        // if the square has already been attacked, run the function again:
-        if (randomSquare.attacked === true) {
-            receiveAttack();
-        // if it hasn't yet been attacked, complete the attack:
-        } else if (randomSquare.attacked === false) {
-            // remove 'ATTACK INCOMING' message:
-            const playerOneTitle = document.querySelector('.player-one-board-title');
-            playerOneTitle.classList.remove('attack-prompt');
-            playerOneTitle.textContent = 'your grid:';
-            currentGame.playerTwo.attack(currentGame.playerOne, [randomX, randomY]);
-            // then re-render the board to show the new attack:
-            renderBoard();
-            // check to see if all the player's ships have sunk:
-            if (currentGame.playerOne.board.allSunk() === true) {
-                alert('computer wins');
+
+        let attackX;
+        let attackY;
+
+        // if there are squares in the queue, attack the first one:
+        if (attackQueue.queue.length >= 1) {
+            const square = attackQueue.getNextAttack();
+            attackX = square.x;
+            attackY = square.y;
+        } else {
+            // otherwise get a random square to potentially attack:
+            const randomX = Math.floor(Math.random() * 10 + 1);
+            const randomY = Math.floor(Math.random() * 10 + 1);
+            const randomSquare = currentGame.playerOne.board.findSquare(randomX, randomY);
+            // if the square has already been attacked, run the function again:
+            if (randomSquare.attacked === true) {
+                receiveAttack();
+                return;
+            // if it hasn't yet been attacked, set the random X/Y as the attack coordinates:
+            } else if (randomSquare.attacked === false) {
+                attackX = randomX;
+                attackY = randomY;
             }
-            // if not, get the player's next move:
-            getPlayerMove();
         }
+
+        // remove 'ATTACK INCOMING' message:
+        const playerOneTitle = document.querySelector('.player-one-board-title');
+        playerOneTitle.classList.remove('attack-prompt');
+        playerOneTitle.textContent = 'your grid:';
+
+        // complete attack:
+        currentGame.playerTwo.attack(currentGame.playerOne, [attackX, attackY]);
+
+        // if it's a hit, check adjacent squares to add to the attack queue:
+        if (currentGame.playerOne.board.findSquare(attackX, attackY).ship 
+         && currentGame.playerOne.board.findSquare(attackX, attackY).attacked === true) {
+            attackQueue.checkSquare(attackX, attackY);
+        }
+        // then re-render the board to show the new attack:
+        renderBoard();
+        // check to see if all the player's ships have sunk:
+        if (currentGame.playerOne.board.allSunk() === true) {
+            alert('computer wins');
+        }
+        // if not, get the player's next move:
+        getPlayerMove();
+        
     }
     
+    const attackQueue = (function () {
+
+        let queue = [];
+
+        function checkSquare(x, y) {
+
+            const squareAbove = currentGame.playerOne.board.findSquare(x, y + 1);
+            const squareRight = currentGame.playerOne.board.findSquare(x + 1, y);
+            const squareBelow = currentGame.playerOne.board.findSquare(x, y - 1);
+            const squareLeft = currentGame.playerOne.board.findSquare(x - 1, y);
+            
+            if (squareAbove && squareAbove.attacked === false) {
+                queue.push(squareAbove);
+            }
+            if (squareRight && squareRight.attacked === false) {
+                queue.push(squareRight);
+            }
+            if (squareBelow && squareBelow.attacked === false) {
+                queue.push(squareBelow);
+            }
+            if (squareLeft && squareLeft.attacked === false) {
+                queue.push(squareLeft);
+            }
+        }
+
+        function getNextAttack() {
+            return queue.shift();
+        }
+
+        return {
+            queue,
+            checkSquare,
+            getNextAttack
+        }
+
+    })();
+
 })();
 
