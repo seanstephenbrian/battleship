@@ -217,7 +217,9 @@ import '../style.css';
     function renderHits(player, boardSelector) {
         player.board.showHits().forEach(hit => {
             const hitSquare = document.querySelector(`${boardSelector} .x${hit[0]}-y${hit[1]}`);
-            hitSquare.style.backgroundColor = '#ff0000'
+            const hitMarker = document.createElement('div');
+            hitMarker.classList.add('hit-marker');
+            hitSquare.appendChild(hitMarker);
         });
     }
 

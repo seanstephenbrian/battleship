@@ -23,6 +23,8 @@ time, mark, audio, video {
     --font-fallback: 'Helvetica', 'Arial', sans-serif;
     --rvv: calc(1rem + 1vh + 1vw);
 
+    --site-green: #1aff00;
+
     --ship-bg: #20334e;
     --ship-border: 1px solid #89a8d4;
     --ship-border-radius: 5px;
@@ -115,7 +117,7 @@ body {
 .new-game-title {
     font-size: calc(0.45*var(--rvv));
     letter-spacing: 1.5px;
-    color: #1aff00;
+    color: var(--site-green);
     text-shadow: rgba(250, 0, 0, 0.475) 2px 2px;
     animation: blink 1s steps(5, start) infinite;
     -webkit-animation: blink 1s steps(5, start) infinite;
@@ -187,6 +189,14 @@ header span {
     font-size: 7px;
 }
 
+.hit-marker {
+    height: 50%;
+    width: 50%;
+    border-radius: 50%;
+    background: rgb(255,0,0);
+    background: linear-gradient(149deg, rgba(255,0,0,1) 0%, rgba(255,81,81,1) 54%, rgba(214,112,112,1) 100%);
+}
+
 .x-1 {
     border-left: none;
 }
@@ -231,7 +241,7 @@ footer {
         max-height: 15vw;
     }
     header span:hover {
-        color: #1aff00;
+        color: var(--site-green);
         text-shadow: rgba(250, 0, 0, 0.475) 2px 2px;
     }
 }
