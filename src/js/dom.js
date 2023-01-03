@@ -2,7 +2,7 @@ import Game from "./game";
 
 import '../style.css';
 
-(function createInitialDOMStructure() {
+(function playGame() {
 
     let currentGame = null;
 
