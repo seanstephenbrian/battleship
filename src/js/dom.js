@@ -265,7 +265,9 @@ import '../style.css';
             const playerTwoBoard = document.querySelector('.player-two-board-squares');
             playerTwoBoard.removeEventListener('click', clickSquare);
             // check to see if all the enemy's ships have sunk:
-            
+            if (currentGame.playerTwo.board.allSunk() === true) {
+                alert('player one wins!');
+            }
             // if not, receive a random attack on player's own board:
             receiveAttack();
         }
@@ -285,7 +287,9 @@ import '../style.css';
             // then re-render the board to show the new attack:
             renderBoard();
             // check to see if all the player's ships have sunk:
-
+            if (currentGame.playerOne.board.allSunk() === true) {
+                alert('computer wins');
+            }
             // if not, get the player's next move:
             getPlayerMove();
         }
