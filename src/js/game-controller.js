@@ -73,35 +73,133 @@ import '../style.css';
                 </div>
             </div>
         `;
-        // LEFT OFF HERE -- NEED TO CREATE TOGGLE SWITCH
 
+        // style the 'PLACE YOUR SHIPS' text:
         const playerOneBoardTitleText = document.querySelector('.player-one-board-title .board-title-text')
         playerOneBoardTitleText.classList.add('attack-prompt');
 
-        // 
+        // create variable to track current ship axis choice:
+        let shipAxis = 'x';
 
-        // only let the user place 5 ships:
-        for (let shipNumber = 1; shipNumber <= 5; shipNumber++) {
+        // add click event listeners to update axis choice:
+        const xButton = document.querySelector('.x-axis-option');
+        const yButton = document.querySelector('.y-axis-option');
+        xButton.addEventListener('click', () => {
+            shipAxis = 'x';
+            yButton.classList.remove('selected-axis');
+            xButton.classList.add('selected-axis');
+        });
+        yButton.addEventListener('click', () => {
+            shipAxis = 'y';
+            xButton.classList.remove('selected-axis');
+            yButton.classList.add('selected-axis');
+        });
+
+        // establish variable to track which # ship is being placed 
+        let shipNumber = 1; // (game will move on after all 5 ships have been placed)
+
+        // add hover listener to gameboard:
+
+        // add click listener to gameboard:
+        const playerOneBoardSquares = document.querySelector('.player-one-board-squares');
+        playerOneBoardSquares.addEventListener('click', clickSquare);
+
+        function clickSquare(e) {
+            // get coordinates of clicked square:
+            const x = e.target.dataset.x;
+            const y = e.target.dataset.y;
+            const clickedCoords = [x, y];
 
             if (shipNumber === 1) {
-                // length is 5
-
+                if (tryToPlaceShip(clickedCoords, shipAxis, 5) === true) {
+                    shipNumber++;
+                }
             } else if (shipNumber === 2) {
-                // length is 4
-
+                if (tryToPlaceShip(clickedCoords, shipAxis, 4) === true) {
+                    shipNumber++;
+                }
             } else if (shipNumber === 3) {
-                // length is 3
+                if (tryToPlaceShip(clickedCoords, shipAxis, 3) === true) {
+                    shipNumber++;
+                }
             } else if (shipNumber === 4) {
-                // length is 3
+                if (tryToPlaceShip(clickedCoords, shipAxis, 3) === true) {
+                    shipNumber++;
+                }
             } else if (shipNumber === 5) {
-                // length is 5
+                if (tryToPlaceShip(clickedCoords, shipAxis, 2) === true) {
+                    // remove click listener for placing ships:
+                    playerOneBoardSquares.removeEventListener('click', clickSquare);
+                    // remove the title text & ship axis toggle:
+                    playerOneBoardTitle.innerHTML = '';
+                    playerOneBoardTitle.textContent = 'your grid:'
+                    // show the playerTwo gameboard:
+                    playerTwoBoard.classList.remove('hide');
+                    // render the board and get the player's first move:
+                    renderBoard();
+                    getPlayerMove();
+                }
             }
-
-
         }
     }
 
+    function tryToPlaceShip(clickedCoords, shipAxis, shipLength) {
+        // check if valid combination of coordinates, axis direction, and ship length:
+        if (checkPlacementValidity(clickedCoords, shipAxis, shipLength) === true) {
+            // if it's valid, place the ship and return true:
+            placeShip(clickedCoords, shipAxis, shipLength);
+            return true;
+        }
+
+        // otherwise...
+        return false;
+    }
+
+    function checkPlacementValidity(clickedCoords, shipAxis, shipLength) {
+        if (shipAxis === 'x' && ((parseInt(clickedCoords[0]) + (parseInt(shipLength) - 1)) > 10)) {
+            return false;
+        } else if (shipAxis === 'y' && ((parseInt(clickedCoords[1]) + (parseInt(shipLength) - 1)) > 10)) {
+            return false;
+        } else if (checkForPlacedShip(clickedCoords, shipAxis, shipLength) === true) {
+            return false;
+        }
+        return true;
+    }
+
+    function checkForPlacedShip(clickedCoords, shipAxis, shipLength) {
+
+        console.log(`clicked: ${clickedCoords}`);
+        console.log(`axis: ${shipAxis}`);
+        console.log(`length: ${shipLength}`);
+
+        if (shipAxis === 'x') {
+            for (let i = 0; i <= (shipLength - 1); i++) {
+                const squareCoords = [(parseInt(clickedCoords[0]) + i), parseInt(clickedCoords[1])];
+                const boardSquare = currentGame.playerOne.board.findSquare(squareCoords[0], squareCoords[1]);
+                console.log(boardSquare);
+                if (boardSquare.ship) {
+                    return true;
+                }
+            }
+        } else if (shipAxis === 'y') {
+            for (let i = 0; i <= (shipLength - 1); i++) {
+                const squareCoords = [(parseInt(clickedCoords[0])), (parseInt(clickedCoords[1]) + i)];
+                const boardSquare = currentGame.playerOne.board.findSquare(squareCoords[0], squareCoords[1]);
+                console.log(boardSquare);
+                if (boardSquare.ship) {
+                    return true;
+                }
+            }
+        }
+        return false;   
+    }
+
+    function placeShip(clickedCoords, shipAxis, shipLength) {
+        console.log(`placing a ship of length ${shipLength} in the ${shipAxis}-axis direction starting on square [${clickedCoords[0]}, ${clickedCoords[1]}]`);
+    }
+
     function renderBoard() {
+        alert('render board fired');
         const playerOne = currentGame.playerOne;
         const playerTwo = currentGame.playerTwo;
 
@@ -115,6 +213,7 @@ import '../style.css';
     }
 
     function getPlayerMove() {
+        alert('getPlayerMove fired');
         const playerTwoTitle = document.querySelector('.player-two-board-title');
         const playerTwoBoard = document.querySelector('.player-two-board-squares');
 
