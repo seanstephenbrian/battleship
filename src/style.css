@@ -25,6 +25,8 @@ time, mark, audio, video {
 
     --site-green: #1aff00;
 
+    --alert-bg: #d5d5d5ce;
+    --button-bg: #ffe4c4;
     --ship-bg: #20334e;
     --ship-border: 1px solid #89a8d4;
     --ship-border-radius: 5px;
@@ -102,7 +104,7 @@ body {
     gap: 3rem;
     border: 0.5px solid black;
     border-radius: 2rem;
-    background-color: #d5d5d5ce;
+    background-color: var(--alert-bg);
     color: black;
 }
 
@@ -132,7 +134,7 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: rgb(255, 228, 196);
+    background-color: var(--button-bg);
 }
 
 .button {
@@ -181,6 +183,72 @@ header span {
     text-shadow: rgba(250, 0, 0, 0.475) 2px 2px;
     animation: blink 1s steps(5, start) infinite;
     -webkit-animation: blink 1s steps(5, start) infinite;
+}
+
+.player-one-board-title {
+    display: flex;
+}
+
+.board-title-text {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.ship-axis-toggle {
+    color: black;
+    background-color: var(--button-bg);
+    border: 1px solid black;
+    border-radius: 7px;
+    padding: 6px;
+    margin-left: auto;
+    letter-spacing: 1.5px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+        "axis-text axis-text"
+        "axis-options axis-options";
+}
+
+.axis-text {
+    grid-area: axis-text;
+}
+
+.axis-options {
+    grid-area: axis-options;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+}
+
+.axis-option {
+    cursor: pointer;
+    text-shadow: none;
+    width: calc(0.5*var(--rvv));
+    height: calc(0.5*var(--rvv));
+    padding: 3px;
+    border: 1px solid transparent;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-indent: 1px;
+}
+
+.x-axis-option {
+    grid-area: x-axis;
+}
+
+.y-axis-option {
+    grid-area: y-axis;
+}
+
+.selected-axis {
+    color: var(--site-green);
+    text-shadow: rgba(250, 0, 0, 0.475) 2px 2px;
+    background: linear-gradient(115deg, rgba(24, 23, 50, 0.681) 0%, rgb(65, 107, 164) 39%, rgba(150,177,194,1) 100%);
+    border: 1px solid black;
 }
 
 .board-squares {
