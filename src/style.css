@@ -196,6 +196,7 @@ header span {
 }
 
 .ship-axis-toggle {
+    font-size: 80%;
     color: black;
     background-color: var(--button-bg);
     border: 1px solid black;
@@ -223,6 +224,8 @@ header span {
 }
 
 .axis-option {
+    font-weight: 500;
+    color: rgba(250, 0, 0, 0.475);
     cursor: pointer;
     text-shadow: none;
     width: calc(0.5*var(--rvv));
@@ -233,7 +236,8 @@ header span {
     display: flex;
     justify-content: center;
     align-items: center;
-    text-indent: 1px;
+    text-indent: 8%;
+    transition: transform 0.1s ease-in-out;
 }
 
 .x-axis-option {
@@ -245,9 +249,9 @@ header span {
 }
 
 .selected-axis {
-    color: var(--site-green);
-    text-shadow: rgba(250, 0, 0, 0.475) 2px 2px;
-    background: linear-gradient(115deg, rgba(24, 23, 50, 0.681) 0%, rgb(65, 107, 164) 39%, rgba(150,177,194,1) 100%);
+    transform: scale(1.2);
+    color: #129303;
+    background: var(--alert-bg);
     border: 1px solid black;
 }
 
@@ -312,6 +316,16 @@ footer {
 }
 
 @media screen and (min-width: 600px) {
+    /* .board-title-text {
+        margin-right: 20px;
+    }
+    
+    .ship-axis-toggle {
+        margin-left: 10px;
+    } */
+    .axis-option:hover:not(.selected-axis) {
+        transform: scale(1.2);
+    }
     .gameboards {
         flex-direction: row;
     }
