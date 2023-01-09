@@ -102,10 +102,6 @@ const DOM = () => {
         alert.remove();
     }
 
-    function testFunction() {
-        alert('worked')
-    }
-
     function initialize() {
         createHeader();
         createGameboardsContainer();
@@ -191,7 +187,6 @@ const DOM = () => {
     }
 
     return {
-        testFunction,
         hideOverlay,
         showOverlay,
         createAlert,

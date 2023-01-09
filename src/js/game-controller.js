@@ -9,8 +9,9 @@ import '../style.css';
     const DOM = domMethods();
 
     DOM.initialize();
+    alertNewGame();
 
-    (function alertNewGame() {
+    function alertNewGame() {
         DOM.createAlert();
         const alert = document.querySelector('.alert-window');
         alert.classList.add('new-game-alert');
@@ -26,7 +27,7 @@ import '../style.css';
             alert.appendChild(startButton);
 
         startButton.addEventListener('click', startGame);
-    })();
+    };
 
     function startGame() {
         DOM.deleteAlert();
@@ -36,10 +37,60 @@ import '../style.css';
         currentGame = Game();
 
         // ADD METHOD TO ALLOW USER TO CHOOSE SHIP POSITIONS HERE
+        chooseShipPositions();
 
-        renderBoard();
 
-        getPlayerMove();
+        // generate random ship positions for computer:
+
+
+
+
+
+
+
+
+        // renderBoard();
+
+        // getPlayerMove();
+    }
+
+    function chooseShipPositions() {
+
+        // hide the enemy grid:
+        const playerTwoBoard = document.querySelector('.player-two-board');
+        playerTwoBoard.classList.add('hide');
+
+        // change the player board title text to 'choose your ships':
+        const playerOneBoardTitle = document.querySelector('.player-one-board-title');
+        playerOneBoardTitle.textContent = 'PLACE YOUR SHIPS:';
+        playerOneBoardTitle.innerHTML = `
+            <div class='board-title-text'>PLACE YOUR SHIPS:</div>
+        `;
+        // LEFT OFF HERE -- NEED TO CREATE TOGGLE SWITCH
+
+        playerOneBoardTitle.classList.add('attack-prompt');
+
+        // 
+
+        // only let the user place 5 ships:
+        for (let shipNumber = 1; shipNumber <= 5; shipNumber++) {
+
+            if (shipNumber === 1) {
+                // length is 5
+
+            } else if (shipNumber === 2) {
+                // length is 4
+
+            } else if (shipNumber === 3) {
+                // length is 3
+            } else if (shipNumber === 4) {
+                // length is 3
+            } else if (shipNumber === 5) {
+                // length is 5
+            }
+
+
+        }
     }
 
     function renderBoard() {
@@ -75,36 +126,44 @@ import '../style.css';
 
     function attemptAttack(x, y) {
         const targetSquare = currentGame.playerTwo.board.findSquare(x, y);
+
         // make sure that the square hasn't been attacked yet:
         if (targetSquare.attacked === false) {
+
             // remove 'CHOOSE A SQUARE' styling:
             const playerTwoTitle = document.querySelector('.player-two-board-title');
             playerTwoTitle.classList.remove('attack-prompt');
-            playerTwoTitle.textContent = 'enemy grid:'
+            playerTwoTitle.textContent = 'enemy grid:';
+
             // then complete the attack:
             currentGame.playerOne.attack(currentGame.playerTwo, [x, y]);
+
             // re-render the board to show the new attack:
             renderBoard();
+
             // remove click listeners from the enemy board:
             const playerTwoBoard = document.querySelector('.player-two-board-squares');
             playerTwoBoard.removeEventListener('click', chooseSquare);
+
             // and remove pointer style from enemy board:
             playerTwoBoard.style.cursor = 'default';
+
             // check to see if all the enemy's ships have sunk:
             if (currentGame.playerTwo.board.allSunk() === true) {
                 alert('player one wins!');
             }
+
             // if not, let the player know the computer is generating an attack:
             const playerOneTitle = document.querySelector('.player-one-board-title');
             playerOneTitle.classList.add('attack-prompt');
-            playerOneTitle.textContent = 'ATTACK INCOMING . . .';            
+            playerOneTitle.textContent = 'ATTACK INCOMING . . .';
+
             // then receive a random attack on player's own board:
             setTimeout(receiveAttack, 2000);
         }
     }
 
     function receiveAttack() {
-
         let attackX;
         let attackY;
 
@@ -118,10 +177,12 @@ import '../style.css';
             const randomX = Math.floor(Math.random() * 10 + 1);
             const randomY = Math.floor(Math.random() * 10 + 1);
             const randomSquare = currentGame.playerOne.board.findSquare(randomX, randomY);
+
             // if the square has already been attacked, run the function again:
             if (randomSquare.attacked === true) {
                 receiveAttack();
                 return;
+
             // if it hasn't yet been attacked, set the random X/Y as the attack coordinates:
             } else if (randomSquare.attacked === false) {
                 attackX = randomX;
@@ -142,15 +203,17 @@ import '../style.css';
          && currentGame.playerOne.board.findSquare(attackX, attackY).attacked === true) {
             attackQueue.checkSquare(attackX, attackY);
         }
+
         // then re-render the board to show the new attack:
         renderBoard();
+
         // check to see if all the player's ships have sunk:
         if (currentGame.playerOne.board.allSunk() === true) {
             alert('computer wins');
         }
+
         // if not, get the player's next move:
         getPlayerMove();
-        
     }
 
     const attackQueue = (function () {
