@@ -47,10 +47,43 @@ import '../style.css';
     function generateComputerShips() {
 
         // for each of the 5 ships...
-
-        // first generate random axis & random square (square coords must be within valid range)
-        // then check validity with the ship length
-        // if it's valid, create the ship
+        for (let compShip = 1; compShip <= 5; compShip++) {
+            // establish ship length:
+            let compShipLength;
+            if (compShip === 1) {
+                compShipLength = 5;
+            } else if (compShip === 2) {
+                compShipLength = 4;
+            } else if (compShip === 3) {
+                compShipLength = 3;
+            } else if (compShip === 4) {
+                compShipLength = 3;
+            } else if (compShip === 5) {
+                compShipLength = 2;
+            }
+            // create variable to track whether ship has been placed:
+            let shipPlaced = false;
+            while (shipPlaced === false) {
+                // generate random axis direction...
+                let compShipAxis;
+                const random = Math.floor(Math.random() * 2) + 1;
+                random === 1 ? compShipAxis = 'x' : compShipAxis = 'y';
+                // choose random valid square:
+                let randomX;
+                let randomY;
+                if (compShipAxis === 'x') {
+                    randomX = Math.floor(Math.random() * (11 - compShipLength)) + 1;
+                    randomY = Math.floor(Math.random() * 10) + 1;
+                } else if (compShipAxis === 'y') {
+                    randomX = Math.floor(Math.random() * 10) + 1;
+                    randomY = Math.floor(Math.random() * (11 - compShipLength)) + 1;
+                }
+                if (checkForPlacedShip(currentGame.playerTwo, [randomX, randomY], compShipAxis, compShipLength) === false) {
+                    placeShip(currentGame.playerTwo, [randomX, randomY], compShipAxis, compShipLength);
+                    shipPlaced = true;
+                }
+            }
+        }
 
     }
 
@@ -99,7 +132,7 @@ import '../style.css';
             yButton.classList.add('selected-axis');
         });
 
-        // establish variable to track which # ship is being placed 
+        // establish variable to track which # ship is being placed:
         let shipNumber = 1; // (game will move on after all 5 ships have been placed)
 
         // add hover listener to gameboard:
@@ -201,7 +234,7 @@ import '../style.css';
         // check if valid combination of coordinates, axis direction, and ship length:
         if (checkPlacementValidity(clickedCoords, shipAxis, shipLength) === true) {
             // if it's valid, place the ship and return true:
-            placeShip(clickedCoords, shipAxis, shipLength);
+            placeShip(currentGame.playerOne, clickedCoords, shipAxis, shipLength);
             return true;
         }
 
@@ -243,7 +276,7 @@ import '../style.css';
         return false;   
     }
 
-    function placeShip(clickedCoords, shipAxis, shipLength) {
+    function placeShip(player, clickedCoords, shipAxis, shipLength) {
         let endX;
         let endY;
         if (shipAxis === 'x') {
@@ -253,7 +286,7 @@ import '../style.css';
             endX = parseInt(clickedCoords[0]);
             endY = parseInt(clickedCoords[1]) + parseInt(shipLength) - 1;
         }
-        currentGame.playerOne.board.createShip([parseInt(clickedCoords[0]), parseInt(clickedCoords[1])], [endX, endY]);
+        player.board.createShip([parseInt(clickedCoords[0]), parseInt(clickedCoords[1])], [endX, endY]);
     }
 
     function renderBoard() {
