@@ -36,22 +36,22 @@ import '../style.css';
         // create the new game:
         currentGame = Game();
 
-        // ADD METHOD TO ALLOW USER TO CHOOSE SHIP POSITIONS HERE
-        chooseShipPositions();
-
-
         // generate random ship positions for computer:
+        generateComputerShips();
 
+        // get ship positions from user:
+        chooseShipPositions(); 
 
+    }
 
+    function generateComputerShips() {
 
+        // for each of the 5 ships...
 
+        // first generate random axis & random square (square coords must be within valid range)
+        // then check validity with the ship length
+        // if it's valid, create the ship
 
-
-
-        // renderBoard();
-
-        // getPlayerMove();
     }
 
     function chooseShipPositions() {
@@ -195,7 +195,6 @@ import '../style.css';
                 }
             }
         }, {once: true});
-
     }
 
     function tryToPlaceShip(clickedCoords, shipAxis, shipLength) {
@@ -215,18 +214,18 @@ import '../style.css';
             return false;
         } else if (shipAxis === 'y' && ((parseInt(clickedCoords[1]) + (parseInt(shipLength) - 1)) > 10)) {
             return false;
-        } else if (checkForPlacedShip(clickedCoords, shipAxis, shipLength) === true) {
+        } else if (checkForPlacedShip(currentGame.playerOne, shipAxis, shipLength) === true) {
             return false;
         }
         return true;
     }
 
-    function checkForPlacedShip(clickedCoords, shipAxis, shipLength) {
+    function checkForPlacedShip(player, clickedCoords, shipAxis, shipLength) {
         // RETURNS TRUE IF IT FINDS A SHIP IN THE ATTEMPTED PLACEMENT ZONE:
         if (shipAxis === 'x') {
             for (let i = 0; i <= (shipLength - 1); i++) {
                 const squareCoords = [(parseInt(clickedCoords[0]) + i), parseInt(clickedCoords[1])];
-                const boardSquare = currentGame.playerOne.board.findSquare(squareCoords[0], squareCoords[1]);
+                const boardSquare = player.board.findSquare(squareCoords[0], squareCoords[1]);
                 if (boardSquare.ship) {
                     return true;
                 }
@@ -234,7 +233,7 @@ import '../style.css';
         } else if (shipAxis === 'y') {
             for (let i = 0; i <= (shipLength - 1); i++) {
                 const squareCoords = [(parseInt(clickedCoords[0])), (parseInt(clickedCoords[1]) + i)];
-                const boardSquare = currentGame.playerOne.board.findSquare(squareCoords[0], squareCoords[1]);
+                const boardSquare = player.board.findSquare(squareCoords[0], squareCoords[1]);
                 if (boardSquare.ship) {
                     return true;
                 }
@@ -271,7 +270,6 @@ import '../style.css';
     }
 
     function getPlayerMove() {
-        alert('getPlayerMove fired');
         const playerTwoTitle = document.querySelector('.player-two-board-title');
         const playerTwoBoard = document.querySelector('.player-two-board-squares');
 

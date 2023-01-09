@@ -25,12 +25,14 @@ time, mark, audio, video {
 
     --site-green: #1aff00;
 
+    --ship-preview: #1aad0aa8;
+
     --alert-bg: #d5d5d5ce;
     --button-bg: #ffe4c4;
     --ship-bg: #20334e;
     --ship-border: 1px solid #89a8d4;
     --ship-border-radius: 5px;
-    --ship-transform: scale(1.1);
+    --ship-transform: scale(1);
 }
 
 @font-face {
@@ -260,7 +262,7 @@ header span {
 }
 
 .ship-preview {
-    background-color: black;
+    background-color: var(--ship-preview);
 }
 
 .board-squares {
