@@ -52,6 +52,10 @@ time, mark, audio, video {
     }
 }
 
+.pointer {
+    cursor: pointer;
+}
+
 html,
 body {
     box-sizing: border-box;
@@ -253,6 +257,10 @@ header span {
     color: #129303;
     background: var(--alert-bg);
     border: 1px solid black;
+}
+
+.ship-preview {
+    background-color: black;
 }
 
 .board-squares {

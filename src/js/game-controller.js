@@ -78,6 +78,10 @@ import '../style.css';
         const playerOneBoardTitleText = document.querySelector('.player-one-board-title .board-title-text')
         playerOneBoardTitleText.classList.add('attack-prompt');
 
+        // apply cursor pointer style to board:
+        const playerOneBoardSquares = document.querySelector('.player-one-board-squares');
+        playerOneBoardSquares.classList.add('pointer');
+
         // create variable to track current ship axis choice:
         let shipAxis = 'x';
 
@@ -99,10 +103,29 @@ import '../style.css';
         let shipNumber = 1; // (game will move on after all 5 ships have been placed)
 
         // add hover listener to gameboard:
+        playerOneBoardSquares.addEventListener('mouseover', hoverOverSquare);
 
         // add click listener to gameboard:
-        const playerOneBoardSquares = document.querySelector('.player-one-board-squares');
         playerOneBoardSquares.addEventListener('click', clickSquare);
+
+        function hoverOverSquare(e) {
+            // get coordinates of hovered-over square:
+            const x = e.target.dataset.x;
+            const y = e.target.dataset.y;
+            const hoverCoords = [x, y];
+
+            if (shipNumber === 1 && checkPlacementValidity(hoverCoords, shipAxis, 5) === true) {
+                previewShip(hoverCoords, shipAxis, 5);
+            } else if (shipNumber === 2 && checkPlacementValidity(hoverCoords, shipAxis, 4) === true) {
+                previewShip(hoverCoords, shipAxis, 4);
+            } else if (shipNumber === 3 && checkPlacementValidity(hoverCoords, shipAxis, 3) === true) {
+                previewShip(hoverCoords, shipAxis, 3);
+            } else if (shipNumber === 4 && checkPlacementValidity(hoverCoords, shipAxis, 3) === true) {
+                previewShip(hoverCoords, shipAxis, 3);
+            } else if (shipNumber === 5 && checkPlacementValidity(hoverCoords, shipAxis, 2) === true) {
+                previewShip(hoverCoords, shipAxis, 2);
+            }
+        }
 
         function clickSquare(e) {
             // get coordinates of clicked square:
@@ -110,37 +133,69 @@ import '../style.css';
             const y = e.target.dataset.y;
             const clickedCoords = [x, y];
 
-            if (shipNumber === 1) {
-                if (tryToPlaceShip(clickedCoords, shipAxis, 5) === true) {
-                    shipNumber++;
-                }
-            } else if (shipNumber === 2) {
-                if (tryToPlaceShip(clickedCoords, shipAxis, 4) === true) {
-                    shipNumber++;
-                }
-            } else if (shipNumber === 3) {
-                if (tryToPlaceShip(clickedCoords, shipAxis, 3) === true) {
-                    shipNumber++;
-                }
-            } else if (shipNumber === 4) {
-                if (tryToPlaceShip(clickedCoords, shipAxis, 3) === true) {
-                    shipNumber++;
-                }
-            } else if (shipNumber === 5) {
-                if (tryToPlaceShip(clickedCoords, shipAxis, 2) === true) {
-                    // remove click listener for placing ships:
-                    playerOneBoardSquares.removeEventListener('click', clickSquare);
-                    // remove the title text & ship axis toggle:
-                    playerOneBoardTitle.innerHTML = '';
-                    playerOneBoardTitle.textContent = 'your grid:'
-                    // show the playerTwo gameboard:
-                    playerTwoBoard.classList.remove('hide');
-                    // render the board and get the player's first move:
-                    renderBoard();
-                    getPlayerMove();
-                }
+            if (shipNumber === 1 && tryToPlaceShip(clickedCoords, shipAxis, 5) === true) {
+                renderBoard();
+                shipNumber++;
+            } else if (shipNumber === 2 && tryToPlaceShip(clickedCoords, shipAxis, 4) === true) {
+                renderBoard();
+                shipNumber++;
+            } else if (shipNumber === 3 && tryToPlaceShip(clickedCoords, shipAxis, 3) === true) {
+                renderBoard();
+                shipNumber++;
+            } else if (shipNumber === 4 && tryToPlaceShip(clickedCoords, shipAxis, 3) === true) {
+                renderBoard();
+                shipNumber++;
+            } else if (shipNumber === 5 && tryToPlaceShip(clickedCoords, shipAxis, 2) === true) {
+                // remove click listener for placing ships & hover listener for previewing ships:
+                playerOneBoardSquares.removeEventListener('click', clickSquare);
+                playerOneBoardSquares.removeEventListener('mouseover', hoverOverSquare);
+                // remove the title text & ship axis toggle:
+                playerOneBoardTitle.innerHTML = '';
+                playerOneBoardTitle.textContent = 'your grid:'
+                // show the playerTwo gameboard:
+                playerTwoBoard.classList.remove('hide');
+                // render the board and get the player's first move:
+                renderBoard();
+                getPlayerMove();
             }
         }
+    }
+
+    function previewShip(hoverCoords, shipAxis, shipLength) {
+
+        const hoveredSquare = document.querySelector(`.x${hoverCoords[0]}-y${hoverCoords[1]}`);
+
+        if (shipAxis === 'x') {
+            for (let i = 0; i <= (parseInt(shipLength) - 1); i++) {
+                const squareCoords = [(parseInt(hoverCoords[0]) + i), parseInt(hoverCoords[1])];
+                const square = document.querySelector(`.x${squareCoords[0]}-y${squareCoords[1]}`);
+                square.classList.add('ship-preview');
+            }
+        } else if (shipAxis === 'y') {
+            for (let i = 0; i <= (parseInt(shipLength) - 1); i++) {
+                const squareCoords = [parseInt(hoverCoords[0]), (parseInt(hoverCoords[1]) + i)];
+                const square = document.querySelector(`.x${squareCoords[0]}-y${squareCoords[1]}`);
+                square.classList.add('ship-preview');
+            }
+        }
+
+        // add mouseout listener to remove styling:
+        hoveredSquare.addEventListener('mouseout', () => {
+            if (shipAxis === 'x') {
+                for (let i = 0; i <= (parseInt(shipLength) - 1); i++) {
+                    const squareCoords = [(parseInt(hoverCoords[0]) + i), parseInt(hoverCoords[1])];
+                    const square = document.querySelector(`.x${squareCoords[0]}-y${squareCoords[1]}`);
+                    square.classList.remove('ship-preview');
+                }
+            } else if (shipAxis === 'y') {
+                for (let i = 0; i <= (parseInt(shipLength) - 1); i++) {
+                    const squareCoords = [parseInt(hoverCoords[0]), (parseInt(hoverCoords[1]) + i)];
+                    const square = document.querySelector(`.x${squareCoords[0]}-y${squareCoords[1]}`);
+                    square.classList.remove('ship-preview');
+                }
+            }
+        }, {once: true});
+
     }
 
     function tryToPlaceShip(clickedCoords, shipAxis, shipLength) {
@@ -172,7 +227,6 @@ import '../style.css';
             for (let i = 0; i <= (shipLength - 1); i++) {
                 const squareCoords = [(parseInt(clickedCoords[0]) + i), parseInt(clickedCoords[1])];
                 const boardSquare = currentGame.playerOne.board.findSquare(squareCoords[0], squareCoords[1]);
-                console.log(boardSquare);
                 if (boardSquare.ship) {
                     return true;
                 }
@@ -181,7 +235,6 @@ import '../style.css';
             for (let i = 0; i <= (shipLength - 1); i++) {
                 const squareCoords = [(parseInt(clickedCoords[0])), (parseInt(clickedCoords[1]) + i)];
                 const boardSquare = currentGame.playerOne.board.findSquare(squareCoords[0], squareCoords[1]);
-                console.log(boardSquare);
                 if (boardSquare.ship) {
                     return true;
                 }
@@ -205,7 +258,6 @@ import '../style.css';
     }
 
     function renderBoard() {
-        alert('render board fired');
         const playerOne = currentGame.playerOne;
         const playerTwo = currentGame.playerTwo;
 
