@@ -346,7 +346,7 @@ import '../style.css';
 
             // check to see if all the enemy's ships have sunk:
             if (currentGame.playerTwo.board.allSunk() === true) {
-                alert('player one wins!');
+                // END OF GAME LOGIC
             }
 
             // if not, let the player know the computer is generating an attack:
@@ -405,7 +405,7 @@ import '../style.css';
 
         // check to see if all the player's ships have sunk:
         if (currentGame.playerOne.board.allSunk() === true) {
-            alert('computer wins');
+            // END OF GAME LOGIC
         }
 
         // if not, get the player's next move:
