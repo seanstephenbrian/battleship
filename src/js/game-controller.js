@@ -167,11 +167,7 @@ import '../style.css';
     }
 
     function checkForPlacedShip(clickedCoords, shipAxis, shipLength) {
-
-        console.log(`clicked: ${clickedCoords}`);
-        console.log(`axis: ${shipAxis}`);
-        console.log(`length: ${shipLength}`);
-
+        // RETURNS TRUE IF IT FINDS A SHIP IN THE ATTEMPTED PLACEMENT ZONE:
         if (shipAxis === 'x') {
             for (let i = 0; i <= (shipLength - 1); i++) {
                 const squareCoords = [(parseInt(clickedCoords[0]) + i), parseInt(clickedCoords[1])];
@@ -191,11 +187,21 @@ import '../style.css';
                 }
             }
         }
+        // returns false is no ship is found:
         return false;   
     }
 
     function placeShip(clickedCoords, shipAxis, shipLength) {
-        console.log(`placing a ship of length ${shipLength} in the ${shipAxis}-axis direction starting on square [${clickedCoords[0]}, ${clickedCoords[1]}]`);
+        let endX;
+        let endY;
+        if (shipAxis === 'x') {
+            endX = parseInt(clickedCoords[0]) + parseInt(shipLength) - 1;
+            endY = parseInt(clickedCoords[1]);
+        } else if (shipAxis === 'y') {
+            endX = parseInt(clickedCoords[0]);
+            endY = parseInt(clickedCoords[1]) + parseInt(shipLength) - 1;
+        }
+        currentGame.playerOne.board.createShip([parseInt(clickedCoords[0]), parseInt(clickedCoords[1])], [endX, endY]);
     }
 
     function renderBoard() {
