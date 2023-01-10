@@ -7,7 +7,8 @@ module.exports = {
   devtool: "inline-source-map",
   plugins: [
     new HtmlWebpackPlugin({
-      title: "battleship",
+      title: "battlesquares",
+      favicon: './src/img/favicon.png',
     }),
   ],
   output: {

@@ -5,7 +5,7 @@ const DOM = () => {
         const header = document.createElement('header');
         body.appendChild(header);
         header.innerHTML = 
-            `<span>b</span><span>a</span><span>t</span><span>t</span><span>l</span><span>e</span><span>s</span><span>h</span><span>i</span><span>p</span>`;
+            `<span>b</span><span>a</span><span>t</span><span>t</span><span>l</span><span>e</span><span>s</span><span>q</span><span>u</span><span>a</span><span>r</span><span>e</span><span>s</span>`;
     }
 
     function createGameboardsContainer() {
@@ -66,7 +66,7 @@ const DOM = () => {
         body.appendChild(footer);
         const date = new Date();
         const year = date.getFullYear();
-        footer.textContent = `copyright © ${year} | sean stephen brian`;
+        footer.innerHTML = `copyright © ${year} | <a href="https://seanstephenbrian.github.io/ssbbd/" class="ssbbd" rel=”noopener”>ssbbd</a>`;
     }
 
     function createOverlay() {

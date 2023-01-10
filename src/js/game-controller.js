@@ -18,7 +18,7 @@ import '../style.css';
 
             const title = document.createElement('div');
             title.classList.add('alert-title', 'new-game-title');
-            title.textContent = 'welcome to BATTLESHIP';
+            title.textContent = 'welcome to BATTLESQUARES';
             alert.appendChild(title);
 
             const startButton = document.createElement('div');
@@ -118,11 +118,10 @@ import '../style.css';
 
         // change the player board title text to 'choose your ships':
         const playerOneBoardTitle = document.querySelector('.player-one-board-title');
-        playerOneBoardTitle.textContent = 'PLACE YOUR SHIPS:';
         playerOneBoardTitle.innerHTML = `
-            <div class="board-title-text">PLACE YOUR SHIPS:</div>
+            <div class="board-title-text">PLACE YOUR SQUARES:</div>
             <div class="ship-axis-toggle">
-                <div class="axis-text">ship axis</div>
+                <div class="axis-text">toggle axis</div>
                 <div class="axis-options">
                     <div class="axis-option x-axis-option selected-axis">X</div>
                     <div class="axis-option y-axis-option">Y</div>

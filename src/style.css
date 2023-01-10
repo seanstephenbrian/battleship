@@ -28,6 +28,8 @@ time, mark, audio, video {
     --ship-preview: #1aad0aa8;
     --invalid-hover: rgba(221, 31, 31, 0.731);
 
+    --favicon: #0b57c1;
+
     --alert-bg: #d5d5d5ce;
     --axis-text: #e3e3e3e7;
     --button-bg: #ffe4c4;
@@ -228,6 +230,7 @@ header span {
 
 .axis-text {
     color: var(--axis-text);
+    text-align: center;
     grid-area: axis-text;
 }
 
@@ -336,6 +339,18 @@ footer {
     align-items: center;
     font-size: calc(0.35*var(--rvv));
     font-weight: 100;
+}
+
+.ssbbd {
+    margin-left: 5px;
+    text-decoration: none;
+    color: white;
+}
+
+.ssbbd:hover {
+    color: var(--site-green);
+    text-shadow: rgba(250, 0, 0, 0.475) 2px 2px;
+    font-style: italic;
 }
 
 @media screen and (min-width: 600px) {
