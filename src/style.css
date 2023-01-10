@@ -26,6 +26,7 @@ time, mark, audio, video {
     --site-green: #1aff00;
 
     --ship-preview: #1aad0aa8;
+    --invalid-hover: rgba(221, 31, 31, 0.731);
 
     --alert-bg: #d5d5d5ce;
     --axis-text: #e3e3e3e7;
@@ -270,6 +271,11 @@ header span {
 
 .ship-preview {
     background-color: var(--ship-preview);
+}
+
+.invalid-hover {
+    cursor: not-allowed;
+    background-color: var(--invalid-hover);
 }
 
 .board-squares {

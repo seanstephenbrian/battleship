@@ -180,6 +180,12 @@ import '../style.css';
                 previewShip(hoverCoords, shipAxis, 3);
             } else if (shipNumber === 5 && checkPlacementValidity(hoverCoords, shipAxis, 2) === true) {
                 previewShip(hoverCoords, shipAxis, 2);
+            } else {
+                const hoveredSquare = document.querySelector(`.x${hoverCoords[0]}-y${hoverCoords[1]}`);
+                hoveredSquare.classList.add('invalid-hover');
+                hoveredSquare.addEventListener('mouseout', () => {
+                    hoveredSquare.classList.remove('invalid-hover');
+                }, {once: true});
             }
         }
 
@@ -270,13 +276,14 @@ import '../style.css';
             return false;
         } else if (shipAxis === 'y' && ((parseInt(clickedCoords[1]) + (parseInt(shipLength) - 1)) > 10)) {
             return false;
-        } else if (checkForPlacedShip(currentGame.playerOne, shipAxis, shipLength) === true) {
+        } else if (checkForPlacedShip(currentGame.playerOne, clickedCoords, shipAxis, shipLength) === true) {
             return false;
         }
         return true;
     }
 
     function checkForPlacedShip(player, clickedCoords, shipAxis, shipLength) {
+        
         // RETURNS TRUE IF IT FINDS A SHIP IN THE ATTEMPTED PLACEMENT ZONE:
         if (shipAxis === 'x') {
             for (let i = 0; i <= (shipLength - 1); i++) {
