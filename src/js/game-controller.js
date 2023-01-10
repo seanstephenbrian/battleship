@@ -29,6 +29,29 @@ import '../style.css';
         startButton.addEventListener('click', startGame);
     };
 
+    function alertEndOfGame(winner) {
+        DOM.createAlert();
+        const alert = document.querySelector('.alert-window');
+        alert.classList.add('end-of-game-alert');
+
+            const title = document.createElement('div');
+            title.classList.add('alert-title', 'end-of-game-title');
+            if (winner === 'player one') {
+                title.textContent = `you are the winner!`;
+            } else if (winner === 'computer') {
+                title.textContent = `the computer is the winner`;
+            }
+            
+            alert.appendChild(title);
+
+            const startButton = document.createElement('div');
+            startButton.classList.add('start-button', 'button');
+            startButton.textContent = 'play again';
+            alert.appendChild(startButton);
+
+        startButton.addEventListener('click', startGame);
+    }
+
     function startGame() {
         DOM.deleteAlert();
         DOM.hideOverlay();
@@ -346,7 +369,7 @@ import '../style.css';
 
             // check to see if all the enemy's ships have sunk:
             if (currentGame.playerTwo.board.allSunk() === true) {
-                // END OF GAME LOGIC
+                alertEndOfGame('player one');
             }
 
             // if not, let the player know the computer is generating an attack:
@@ -405,7 +428,7 @@ import '../style.css';
 
         // check to see if all the player's ships have sunk:
         if (currentGame.playerOne.board.allSunk() === true) {
-            // END OF GAME LOGIC
+            alertEndOfGame('computer');
         }
 
         // if not, get the player's next move:

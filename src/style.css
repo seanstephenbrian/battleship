@@ -118,17 +118,23 @@ body {
     font-weight: 500;
 }
 
-.new-game-alert {
+.new-game-alert,
+.end-of-game-alert {
     max-height: 40vw;
 }
 
-.new-game-title {
+.new-game-title,
+.end-of-game-title {
     font-size: calc(0.45*var(--rvv));
     letter-spacing: 1.5px;
     color: var(--site-green);
     text-shadow: rgba(250, 0, 0, 0.475) 2px 2px;
     animation: blink 1s steps(5, start) infinite;
     -webkit-animation: blink 1s steps(5, start) infinite;
+}
+
+.end-of-game-title {
+    text-align: center;
 }
 
 .start-button {
@@ -326,13 +332,6 @@ footer {
 }
 
 @media screen and (min-width: 600px) {
-    /* .board-title-text {
-        margin-right: 20px;
-    }
-    
-    .ship-axis-toggle {
-        margin-left: 10px;
-    } */
     .axis-option:hover:not(.selected-axis) {
         transform: scale(1.2);
     }
@@ -349,7 +348,8 @@ footer {
         max-width: 25vw;
         max-height: 25vw;
     }
-    .new-game-alert {
+    .new-game-alert,
+    .end-of-game-alert {
         max-height: 15vw;
     }
     header span:hover {
