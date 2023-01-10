@@ -171,6 +171,9 @@ import '../style.css';
         playerOneBoardSquares.addEventListener('click', clickSquare);
 
         function hoverOverSquare(e) {
+            if (window.innerWidth < 600) {
+                return;
+            }
             // get coordinates of hovered-over square:
             const x = e.target.dataset.x;
             const y = e.target.dataset.y;
