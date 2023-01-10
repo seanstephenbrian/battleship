@@ -4,8 +4,72 @@ const DOM = () => {
         const body = document.querySelector('body');
         const header = document.createElement('header');
         body.appendChild(header);
-        header.innerHTML = 
-            `<span>b</span><span>a</span><span>t</span><span>t</span><span>l</span><span>e</span><span>s</span><span>q</span><span>u</span><span>a</span><span>r</span><span>e</span><span>s</span>`;
+        header.innerHTML = `
+            <span class="header-letter">b</span class="header-letter">
+            <span class="header-letter">a</span class="header-letter">
+            <span class="header-letter">t</span class="header-letter">
+            <span class="header-letter">t</span class="header-letter">
+            <span class="header-letter">l</span class="header-letter">
+            <span class="header-letter">e</span class="header-letter">
+            <span class="header-letter">s</span class="header-letter">
+            <span class="header-letter">q</span class="header-letter">
+            <span class="header-letter">u</span class="header-letter">
+            <span class="header-letter">a</span class="header-letter">
+            <span class="header-letter">r</span class="header-letter">
+            <span class="header-letter">e</span class="header-letter">
+            <span class="header-letter">s</span class="header-letter">`;
+        // add click listeners to each <span> for desktop hover effect:
+        const letters = document.querySelectorAll('.header-letter');
+        letters.forEach(letter => {
+            const letterItself = letter.textContent;
+            letter.addEventListener('mouseover', () => {
+                if (window.innerWidth > 600) {
+                    letter.textContent = '';
+                    letter.classList.add('square-effect', 'spin');
+                    letter.style.borderColor = generateRandomSiteColor();
+                    const boxShadowColor = generateRandomSiteColor();
+                    letter.style.boxShadow = `${boxShadowColor} 2px 2px`;
+                    letter.style.backgroundColor = generateRandomSiteColor();
+                    letter.style.transition = 'transform 0.2s ease-in-out';
+                    const randomRotation = Math.floor(Math.random() * 721 - 360); // random # of degrees between -360 and 360
+                    letter.style.transform = `rotate(${randomRotation}deg)`;
+                }
+            });
+            letter.addEventListener('mouseout', () => {
+                setTimeout(() => {
+                    letter.textContent = letterItself;
+                    letter.classList.remove('square-effect', 'spin');
+                    letter.style.borderColor = '';
+                    letter.style.boxShadow = '';
+                    letter.style.backgroundColor = '';
+                }, 500);
+            });
+        });
+    }
+
+    function generateRandomSiteColor() {
+        const colors = [
+            '#1aff00', 
+            '#1aad0aa8', 
+            '#dd1f1fba', 
+            '#0b57c1', 
+            '#d5d5d5ce', 
+            '#89a8d4', 
+            '#0047ab', 
+            '#96b1c2', 
+            '#fa000079', 
+            '#d16262',
+            '#129303',
+            '#ffffffaa',
+            '#ff0000',
+            '#ff5151',
+            '#d67070',
+            '#676f7a',
+            '#344863',
+            '#173157'
+        ];
+        const randomIndex = Math.floor(Math.random() * (colors.length)) + 1;
+        return colors[randomIndex];
     }
 
     function createGameboardsContainer() {
@@ -66,7 +130,7 @@ const DOM = () => {
         body.appendChild(footer);
         const date = new Date();
         const year = date.getFullYear();
-        footer.innerHTML = `copyright © ${year} | <a href="https://seanstephenbrian.github.io/ssbbd/" class="ssbbd" rel=”noopener”>ssbbd</a>`;
+        footer.innerHTML = `copyright © ${year} | <a href="https://seanstephenbrian.github.io/ssbbd/" class="ssbbd" target="ssbbd" rel=”noopener”>ssbbd</a>`;
     }
 
     function createOverlay() {
