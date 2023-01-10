@@ -33,6 +33,7 @@ time, mark, audio, video {
     --alert-bg: #d5d5d5ce;
     --axis-text: #e3e3e3e7;
     --button-bg: #ffe4c4;
+    --mobile-warning-bg: #89a8d469;
     --ship-bg: #20334e;
     --ship-border: 1px solid #89a8d4;
     --ship-border-radius: 5px;
@@ -111,7 +112,7 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    gap: 3rem;
+    gap: 1rem;
     border: 0.5px solid black;
     border-radius: 2rem;
     background-color: var(--alert-bg);
@@ -148,6 +149,15 @@ body {
     justify-content: center;
     align-items: center;
     background-color: var(--button-bg);
+}
+
+.mobile-warning {
+    color: #111b29;
+    font-weight: 100;
+    font-size: calc(0.3*var(--rvv));
+    border: 0.5px solid #111b29;
+    padding: 5px;
+    background-color: var(--mobile-warning-bg);
 }
 
 .button {
@@ -225,8 +235,6 @@ header span:hover {
 .ship-axis-toggle {
     font-size: 80%;
     color: black;
-    /* background-color: var(--button-bg); */
-    /* border: 1px solid black; */
     border-radius: 7px;
     padding: 6px;
     margin-left: auto;
@@ -385,6 +393,7 @@ footer {
         height: 35vw;
     }
     .alert-window {
+        gap: 3rem;
         min-width: 300px;
         min-height: 300px;
         max-width: 25vw;

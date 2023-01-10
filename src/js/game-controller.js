@@ -26,6 +26,13 @@ import '../style.css';
             startButton.textContent = 'start game';
             alert.appendChild(startButton);
 
+            if (window.innerWidth < 600) {
+                const mobileWarning = document.createElement('div');
+                mobileWarning.classList.add('mobile-warning');
+                mobileWarning.innerHTML = `for optimal game performance, <br>please use a desktop browser`;
+                alert.appendChild(mobileWarning);
+            }
+
         startButton.addEventListener('click', startGame);
     };
 
