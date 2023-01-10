@@ -28,6 +28,7 @@ time, mark, audio, video {
     --ship-preview: #1aad0aa8;
 
     --alert-bg: #d5d5d5ce;
+    --axis-text: #e3e3e3e7;
     --button-bg: #ffe4c4;
     --ship-bg: #20334e;
     --ship-border: 1px solid #89a8d4;
@@ -210,8 +211,8 @@ header span {
 .ship-axis-toggle {
     font-size: 80%;
     color: black;
-    background-color: var(--button-bg);
-    border: 1px solid black;
+    /* background-color: var(--button-bg); */
+    /* border: 1px solid black; */
     border-radius: 7px;
     padding: 6px;
     margin-left: auto;
@@ -225,6 +226,7 @@ header span {
 }
 
 .axis-text {
+    color: var(--axis-text);
     grid-area: axis-text;
 }
 
@@ -237,7 +239,7 @@ header span {
 
 .axis-option {
     font-weight: 500;
-    color: rgba(250, 0, 0, 0.475);
+    color: rgb(209, 98, 98);
     cursor: pointer;
     text-shadow: none;
     width: calc(0.5*var(--rvv));
@@ -264,7 +266,6 @@ header span {
     transform: scale(1.2);
     color: #129303;
     background: var(--alert-bg);
-    border: 1px solid black;
 }
 
 .ship-preview {
