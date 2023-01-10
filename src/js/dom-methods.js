@@ -130,7 +130,7 @@ const DOM = () => {
         body.appendChild(footer);
         const date = new Date();
         const year = date.getFullYear();
-        footer.innerHTML = `copyright © ${year} | <a href="https://seanstephenbrian.github.io/ssbbd/" class="ssbbd" target="ssbbd" rel=”noopener”>ssbbd</a>`;
+        footer.innerHTML = `copyright © ${year} <a href="https://seanstephenbrian.github.io/ssbbd/" class="ssbbd" target="ssbbd" rel=”noopener”>ssbbd</a>`;
     }
 
     function createOverlay() {
