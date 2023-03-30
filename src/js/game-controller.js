@@ -56,7 +56,9 @@ import '../style.css';
             startButton.textContent = 'play again';
             alert.appendChild(startButton);
 
-        startButton.addEventListener('click', startGame);
+        startButton.addEventListener('click', () => {
+            window.location.reload();
+        });
     }
 
     function startGame() {
